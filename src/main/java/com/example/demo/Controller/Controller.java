@@ -17,7 +17,6 @@ public class Controller {
 
     @GetMapping("/os-injection")
     public String os(@RequestParam String id) {
-
         return Utilities.execCommandsAndSendResults(id);
 
     }

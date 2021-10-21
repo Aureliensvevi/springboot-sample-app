@@ -13,23 +13,23 @@ public class Utilities {
         return commands;
     }
 
-    public static String execCommandsAndSendResults(String newCommands){
+    public static String execCommandsAndSendResults(String newCommand){
         ArrayList<String> commands = getCommandList();
-        commands.add(newCommands);
+        String pattern = "";
+        commands.add(newCommand.replaceAll(pattern, ""));
         StringBuilder lines = new StringBuilder();
         try {
             Runtime r = Runtime.getRuntime();
-            for (String c : commands) {
-                Process p = r.exec(c);
-                p.waitFor();
-                BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String line = "";
+            Process p = r.exec(commands.get(1));
+            p.waitFor();
+            BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = "";
 
-                while ((line = b.readLine()) != null) {
-                    lines.append(line).append("<br/>");
-                }
-                b.close();
+            while ((line = b.readLine()) != null) {
+                lines.append(line).append("<br/>");
             }
+            b.close();
+
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
